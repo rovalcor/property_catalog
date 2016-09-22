@@ -1,24 +1,7 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :destroy]
 
-  # GET /photos
-  # GET /photos.json
-  def index
-    @photos = Photo.rank(:rank_order).all
-  end
-
-  # GET /photos/1
-  # GET /photos/1.json
   def show
-  end
-
-  # GET /photos/new
-  def new
-    @photo = Photo.new
-  end
-
-  # GET /photos/1/edit
-  def edit
   end
 
   # POST /photos
@@ -44,20 +27,6 @@ class PhotosController < ApplicationController
   	@photo.save
   	
   	render nothing: true
-  end
-
-  # PATCH/PUT /photos/1
-  # PATCH/PUT /photos/1.json
-  def update
-    respond_to do |format|
-      if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /photos/1

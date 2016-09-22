@@ -20,7 +20,8 @@ class PropertiesControllerTest < ActionController::TestCase
     assert_difference('Property.count') do
       post :create, property: { description: @property.description, property_type: @property.property_type, title: @property.title }
     end
-
+    
+    
     assert_redirected_to property_path(assigns(:property))
   end
 

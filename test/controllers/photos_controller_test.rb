@@ -5,17 +5,6 @@ class PhotosControllerTest < ActionController::TestCase
     @photo = photos(:one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:photos)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
   test "should create photo" do
     assert_difference('Photo.count') do
       post :create, photo: { image: @photo.image }
@@ -28,15 +17,10 @@ class PhotosControllerTest < ActionController::TestCase
     get :show, id: @photo
     assert_response :success
   end
-
-  test "should get edit" do
-    get :edit, id: @photo
+  
+  test "should order photo" do
+    post :update_order, photo_id: @photo, rank_order_position: 0
     assert_response :success
-  end
-
-  test "should update photo" do
-    patch :update, id: @photo, photo: { image: @photo.image }
-    assert_redirected_to photo_path(assigns(:photo))
   end
 
   test "should destroy photo" do
@@ -44,6 +28,6 @@ class PhotosControllerTest < ActionController::TestCase
       delete :destroy, id: @photo
     end
 
-    assert_redirected_to photos_path
+    assert_redirected_to edit_property_path(@photo.property)
   end
 end

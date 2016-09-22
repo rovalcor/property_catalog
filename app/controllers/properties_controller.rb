@@ -4,6 +4,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
+  	#Order properties in case of a search query
     unless params[:search] == nil
     	@properties = Property.search(params[:search],params[:search_type]).order("created_at desc")
     else
@@ -37,6 +38,7 @@ class PropertiesController < ApplicationController
     @property = Property.new(property_params)
     respond_to do |format|
       if @property.save
+      	#If photos were uploaded, parameters for each one will be posted separately
       	unless params[:photos] == nil
       		params[:photos]['image'].each do |p|
       			@property.photos.create!(image: p)
@@ -57,6 +59,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
+      #If photos were uploaded, parameters for each one will be posted separately
       	unless params[:photos] == nil
       		params[:photos]['image'].each do |p|
       			@property.photos.create!(image: p)

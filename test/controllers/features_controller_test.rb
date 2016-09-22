@@ -21,7 +21,7 @@ class FeaturesControllerTest < ActionController::TestCase
       post :create, feature: { name: @feature.name }
     end
 
-    assert_redirected_to feature_path(assigns(:feature))
+    assert_redirected_to features_url
   end
 
   test "should show feature" do
@@ -36,7 +36,7 @@ class FeaturesControllerTest < ActionController::TestCase
 
   test "should update feature" do
     patch :update, id: @feature, feature: { name: @feature.name }
-    assert_redirected_to feature_path(assigns(:feature))
+    assert_redirected_to features_url
   end
 
   test "should destroy feature" do
