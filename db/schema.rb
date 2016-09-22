@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921042818) do
+ActiveRecord::Schema.define(version: 20160922070425) do
 
   create_table "features", force: true do |t|
     t.string   "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160921042818) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "property_id"
+    t.integer  "rank_order"
   end
 
   create_table "properties", force: true do |t|

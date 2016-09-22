@@ -5,27 +5,28 @@ class PropertiesController < ApplicationController
   # GET /properties.json
   def index
     unless params[:search] == nil
-    	@properties = Property.search(params[:search]).order("updated_at desc")
+    	@properties = Property.search(params[:search],params[:search_type]).order("created_at desc")
     else
-    	 @properties = Property.all.order("updated_at desc")
+    	 @properties = Property.all.order("created_at desc")
     end
   end
 
   # GET /properties/1
   # GET /properties/1.json
   def show
-
+  	@property_photos = @property.photos.rank(:rank_order)
   end
 
   # GET /properties/new
   def new
     @property = Property.new
-    @photo = @property.photos.build
+    @photos = @property.photos.build
     
   end
 
   # GET /properties/1/edit
   def edit
+  	@property_photos = @property.photos.rank(:rank_order)
   end
 
   # POST /properties
@@ -38,6 +39,7 @@ class PropertiesController < ApplicationController
       		params[:photos]['image'].each do |p|
       			@property.photos.create!(image: p)
       		end
+      		@property.photos.rank(:rank_order)
       	end
         format.html { redirect_to @property, notice: 'Property was successfully created.' }
         format.json { render action: 'show', status: :created, location: @property }
@@ -57,6 +59,7 @@ class PropertiesController < ApplicationController
       		params[:photos]['image'].each do |p|
       			@property.photos.create!(image: p)
       		end
+      		@property.photos.rank(:rank_order)
       	end
         format.html { redirect_to @property, notice: 'Property was successfully updated.' }
         format.json { head :no_content }

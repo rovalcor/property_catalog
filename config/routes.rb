@@ -1,5 +1,10 @@
 PropertyCatalog::Application.routes.draw do
-  resources :photos
+
+  root to: 'properties#index'
+
+  resources :photos do 
+  	post :update_order, on: :collection 
+  end
 
   resources :features
 

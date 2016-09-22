@@ -1,6 +1,8 @@
 <%= form_tag(properties_path, method: "get", id: "searchbar") do %>
-	<%= text_field_tag :search, params[:search], 
+	<%= text_field_tag :search, params[:search], size: 80,
 		placeholder: "Find properties by title, type or description" %>
+	<%= select_tag :search_type, options_for_select(Property::SEARCH_TYPES), 
+		prompt: 'Search type:' %>
 	<%= submit_tag "Search" %>
 <% end %>
 
@@ -21,7 +23,7 @@
     <% @properties.each do |property| %>
       <tr>
       	<% if property.photos.any? %>
-      		<td><%= image_tag(property.photos.first.image_url(:thumb))%></td>
+      		<td><%= image_tag(property.photos.first(order: "rank_order").image_url(:thumb))%></td>
       	<% else %>
       		<td><%= image_tag("property_default.png")%></td>
       	<% end %>

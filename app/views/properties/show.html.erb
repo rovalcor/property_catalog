@@ -28,10 +28,14 @@
 
 
 <p>
-  <% @property.photos.each do |p| %>
-  <%= image_tag p.image_url(:thumb) %>
-  <%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' }%>
-<% end %>
+  <% if @property_photos.any? %>
+    <strong id = "photos">Photos</strong> <br/>
+  	<% @property_photos.each do |p| %>
+  	<%= image_tag p.image_url %> <br/>
+	<% end %>
+  <% else %>
+  	<strong id = "no_photos">No photos to show</strong>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_property_path(@property) %> |

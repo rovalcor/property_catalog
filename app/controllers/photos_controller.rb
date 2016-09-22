@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    @photos = Photo.rank(:rank_order).all
   end
 
   # GET /photos/1
@@ -36,6 +36,15 @@ class PhotosController < ApplicationController
       end
     end
   end
+  
+  # POST /photos/update_order
+  def update_order
+  	@photo = Photo.find(params[:photo_id])
+  	@photo.rank_order_position = params[:rank_order_position]
+  	@photo.save
+  	
+  	render nothing: true
+  end
 
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
@@ -56,7 +65,8 @@ class PhotosController < ApplicationController
   def destroy
     @photo.destroy
     respond_to do |format|
-      format.html { redirect_to @photo.property, notice: 'Photo was successfully deleted.' }
+      format.html { redirect_to edit_property_path(@photo.property), 
+      				notice: 'Photo was successfully deleted.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +79,6 @@ class PhotosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:image)
+      params.require(:photo).permit(:image, :photo_id, :rank_order_position)
     end
 end

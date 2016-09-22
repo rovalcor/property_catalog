@@ -18,8 +18,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
+# Use jquery for sorting images through JavaScript
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -35,6 +37,9 @@ end
 #use CarrierWave to upload images
 gem 'carrierwave', '>= 1.0.0.beta', '< 2.0', github: 'carrierwaveuploader/carrierwave'
 gem "rmagick"
+
+#use ranked-model to allow quick reordering
+gem 'ranked-model'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
