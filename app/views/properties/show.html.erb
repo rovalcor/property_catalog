@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @property.title %>
+</p>
+
+<p>
+  <strong>Property type:</strong>
+  <%= @property.property_type %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @property.description %>
+</p>
+
+<p>
+ <% if @property.features.any?%>
+  <strong>Features:</strong>
+  	<% @property.features.each do |f| %>
+  	 <ul>
+  		<li><%= f.name %></li>
+ 	 </ul>
+  	<% end %>
+  <% end %>
+</p>
+
+
+<p>
+  <% @property.photos.each do |p| %>
+  <%= image_tag p.image_url(:thumb) %>
+  <%= link_to 'Delete', p, method: :delete%>
+<% end %>
+</p>
+
+<%= link_to 'Edit', edit_property_path(@property) %> |
+<%= link_to 'Back', properties_path %>
