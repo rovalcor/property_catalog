@@ -1,17 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
-  <%= @property.title %>
+  <h2 id = "title"><%= @property.title %></h2>
 </p>
 
-<p>
-  <strong>Property type:</strong>
+<h3 id = "property_type">
   <%= @property.property_type %>
-</p>
+</h3>
 
-<p>
-  <strong>Description:</strong>
+<p id = "description">
   <%= @property.description %>
 </p>
 
@@ -29,9 +26,11 @@
 
 <p>
   <% if @property_photos.any? %>
-    <strong id = "photos">Photos</strong> <br/>
-  	<% @property_photos.each do |p| %>
-  	<%= image_tag p.image_url %> <br/>
+    <strong>Photos</strong> <br/>
+    	<% @property_photos.each do |p| %>
+    	<div class="photo">
+  			<%= image_tag p.image_url %> <br/>
+  		</div>
 	<% end %>
   <% else %>
   	<strong id = "no_photos">No photos to show</strong>

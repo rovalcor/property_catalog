@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PropertyCatalog</title>
+  <title>Property Catalog Manager</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class='<%= controller.controller_name %>'>
+	<div id="banner">
+	
+		Property Catalog Manager
+		
+	</div>
 
-<%= yield %>
+	<div id="columns">
+	
+    	<div id="sidebar">
+     	 	<ul>
+        	<li>You can create, manage, and search for properties directly from the index.</li>
+			<li>Editing a property allows you to manage information and photos.</li>
+			<li>You can reorder photos by dragging them while editing.</li>
+      		</ul>
+    	</div>
+    	
+    <div id="main">
+      <%= yield %>
+    </div>
+    
+  </div>
 
 </body>
 </html>

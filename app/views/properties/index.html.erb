@@ -6,16 +6,14 @@
 	<%= submit_tag "Search" %>
 <% end %>
 
-<table>
+<table id = "table_catalog">
   <thead>
     <tr>
       <th>Preview</th>
       <th>Title</th>
       <th>Property type</th>
       <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th id = "action_col">Actions</th>
     </tr>
   </thead>
 
@@ -30,9 +28,11 @@
         <td><%= property.title %></td>
         <td><%= property.property_type %></td>
         <td><%= property.description %></td>
-        <td><%= link_to 'Show', property %></td>
-        <td><%= link_to 'Edit', edit_property_path(property) %></td>
-        <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+        	<%= link_to 'Show', property %><br/>
+      		<%= link_to 'Edit', edit_property_path(property) %><br/>
+        	<%= link_to 'Delete', property, method: :delete,
+        		 data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

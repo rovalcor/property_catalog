@@ -21,12 +21,14 @@ class PropertiesController < ApplicationController
   def new
     @property = Property.new
     @photos = @property.photos.build
+    @new_flag = true
     
   end
 
   # GET /properties/1/edit
   def edit
   	@property_photos = @property.photos.rank(:rank_order)
+  	@new_flag = false
   end
 
   # POST /properties
