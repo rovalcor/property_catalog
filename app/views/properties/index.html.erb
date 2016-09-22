@@ -6,6 +6,10 @@
 	<%= submit_tag "Search" %>
 <% end %>
 
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
 <table id = "table_catalog">
   <thead>
     <tr>

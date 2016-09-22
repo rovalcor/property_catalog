@@ -1,5 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :property_not_found
 
   # GET /properties
   # GET /properties.json
@@ -95,4 +96,9 @@ class PropertiesController < ApplicationController
     def property_params
       params.require(:property).permit(:title, :property_type, :description, feature_ids:[], photos_attributes: [:image])
     end
+    
+    def property_not_found
+    	redirect_to(properties_url, notice: "The requested property does not exist")
+    end
+    
 end
