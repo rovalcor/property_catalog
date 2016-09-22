@@ -4,7 +4,11 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    @properties = Property.all
+    unless params[:search] == nil
+    	@properties = Property.search(params[:search]).order("updated_at desc")
+    else
+    	 @properties = Property.all.order("updated_at desc")
+    end
   end
 
   # GET /properties/1

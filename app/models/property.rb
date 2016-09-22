@@ -5,4 +5,11 @@ class Property < ActiveRecord::Base
 	PROPERTY_TYPES = ["Apartment", "House", "Office"]
 	validates :title, :description, presence: true
 	validates :property_type, inclusion: PROPERTY_TYPES
+	
+	private
+	def self.search(terms)
+		where("title like ? or property_type like ? or description like ?", 
+			"%#{terms}%", "%#{terms}%", "%#{terms}%")
+	end
+	
 end

@@ -1,4 +1,8 @@
-<h1>Listing properties</h1>
+<%= form_tag(properties_path, method: "get", id: "searchbar") do %>
+	<%= text_field_tag :search, params[:search], 
+		placeholder: "Find properties by title, type or description" %>
+	<%= submit_tag "Search" %>
+<% end %>
 
 <table>
   <thead>
@@ -16,7 +20,11 @@
   <tbody>
     <% @properties.each do |property| %>
       <tr>
-      	<td><%= image_tag property.photos.first.image_url(:thumb) if property.photos.first%></td>
+      	<% if property.photos.any? %>
+      		<td><%= image_tag(property.photos.first.image_url(:thumb))%></td>
+      	<% else %>
+      		<td><%= image_tag("property_default.png")%></td>
+      	<% end %>
         <td><%= property.title %></td>
         <td><%= property.property_type %></td>
         <td><%= property.description %></td>

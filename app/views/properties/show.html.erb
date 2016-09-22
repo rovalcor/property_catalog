@@ -30,7 +30,7 @@
 <p>
   <% @property.photos.each do |p| %>
   <%= image_tag p.image_url(:thumb) %>
-  <%= link_to 'Delete', p, method: :delete%>
+  <%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' }%>
 <% end %>
 </p>
 
