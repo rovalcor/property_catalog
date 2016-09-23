@@ -1,0 +1,46 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="title_type_field">
+    <h3>Title</h3>
+    <%= f.text_field :title, size: 45 %>
+    <%= f.select :property_type, Property::PROPERTY_TYPES, prompt: 'Property type:' %>
+  </div>
+
+  <div class="description_field">
+    <h3>Description</h3>
+    <%= f.text_area :description %>
+  </div>
+  
+  <% if Feature.any? %>
+  <div class="checkbox_field">
+  	<h3>Features</h3>
+  	<%= f.collection_check_boxes :feature_ids, Feature.all, :id, :name do |c| %>
+    <div class="checkboxes">
+      <%= c.check_box %>
+      <%= c.label %>
+    </div>
+  <% end %>
+  </div>
+  <% end %>
+  <div class="upload_field">
+    Upload your image files here:<br/>
+    <%= f.file_field :image, name: "photos[image][]", multiple: true, 
+    	accept: "image/png, image/jpg, image/jpeg, image/gif"%>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit class: "submit_button" %>
+  </div>
+
+<% end %>
