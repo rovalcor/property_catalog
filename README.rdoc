@@ -1,28 +1,73 @@
-== README
+== HOW TO DEPLOY
+(Tested for a UNIX infrastructure, specifically on Mac OS X 10.11.6)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+REQUIREMENTS:
+  -Git 
+  -Phusion Passenger (gem: passenger)
 
-Things you may want to cover:
+1. Pull the app through git to an admin-owned directory:
+  $ mkdir property_catalog
+  $ sudo chown admin_username: property_catalog (replacing "admin_username" with the Mac OS X administrator user name)
+  $ sudo -u admin_username -H git clone git://github.com/rovalcor/property_catalog.git code
+  
+2. Once downloaded, proceed to the app's code directory:
+  $ cd code
+  
+3. If not already signed in to the administrator user, sign in now:
+  $ sudo -u admin_username -H bash -l
+  
+4. Install the gems required for the project, specified in the project's Gemfile:
+  $ bundle install --deployment --without development test
+  
+5. Run Rake to precompile the app's assets and migrate the database for a production environment:
+  $ bundle exec rake assets:precompile db:migrate RAILS_ENV=production
+  
+6. Through Passenger, find the path of your Ruby interpreter:
+  $ passenger-config about ruby-command (The path is filed under the line starting with "Command:")
 
-* Ruby version
+7. Use this value to fill in a virtual host in your Apache configuration file:
+  $ sudo nano /etc/apache2/httpd.conf (Path may vary)
+  
+  Example:
+  <VirtualHost *:80>
+    ServerName catalog.yourhost.com (or server name of your choice)
 
-* System dependencies
+    DocumentRoot /place/path/where/the/project/was/cloned/into/code/public
 
-* Configuration
+    PassengerRuby /place/path/obtained/in/step/six
 
-* Database creation
+    <Directory /place/path/where/the/project/was/cloned/into/code/public>
+      Require all granted
+      Allow from all
+      Options -MultiViews
+    </Directory>
+  </VirtualHost>
+  
+  Note that the document root and directory point to the "public" folder for the project, which was pulled to a folder named "code".
+  
+  8. On httpd.conf, uncomment the following line:
+    #Include /private/etc/apache2/extra/httpd-vhosts.conf
+  
+  9. Configurate a virtual host in the httpd-vhosts.conf file to add your chosen server name:
+    $ sudo nano /etc/apache2/extra/httpd-vhosts.conf
+    Example:
+    <VirtualHost *:80>
+      ServerAdmin webmaster@dummy-host.example.com
+      DocumentRoot "/usr/docs/dummy-host.example.com"
+      ServerName catalog.yourhost.com (or server name of your choice)
+      ServerAlias www.dummy-host.example.com
+      ErrorLog "/private/var/log/apache2/dummy-host.example.com-error_log"
+      CustomLog "/private/var/log/apache2/dummy-host.example.com-access_log" common
+    </VirtualHost>
+    
+    10. Restart Apache
+      $ sudo apachectl restart
+      
+    11. The app is now deployed locally.
+  
+  
+  
+  
+  
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
