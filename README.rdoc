@@ -45,10 +45,10 @@ Use this value to fill in a virtual host in your Apache configuration file:
   
   Note that the document root and directory point to the "public" folder for the project, which was pulled to a folder named "code".
   
-  On httpd.conf, uncomment the following line:
+On httpd.conf, uncomment the following line:
     #Include /private/etc/apache2/extra/httpd-vhosts.conf
   
-  Configurate a virtual host in the httpd-vhosts.conf file to add your chosen server name:
+Configurate a virtual host in the httpd-vhosts.conf file to add your chosen server name:
     $ sudo nano /etc/apache2/extra/httpd-vhosts.conf
     Example:
     <VirtualHost *:80>
@@ -60,10 +60,10 @@ Use this value to fill in a virtual host in your Apache configuration file:
       CustomLog "/private/var/log/apache2/dummy-host.example.com-access_log" common
     </VirtualHost>
     
-  Restart Apache
+Restart Apache
       $ sudo apachectl restart
       
-  The app is now deployed locally.
+The app is now deployed locally.
   
   
   
